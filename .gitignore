@@ -22,10 +22,6 @@
 !/Build/
 !Build/**
 
-# Allow Build folder for WebGL output
-!/Build/
-!Build/**
-
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/

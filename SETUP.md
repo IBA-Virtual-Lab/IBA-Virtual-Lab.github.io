@@ -77,8 +77,8 @@ This repository is set up for GitHub Pages deployment:
 
 Edit `index.html` to customize:
 - Page title (line 8)
-- Header title and description (lines 197-198)
-- Footer information (lines 213-215)
+- Header title and description (lines 218-219)
+- Footer information (lines 244-245)
 - Color scheme (CSS variables in the `<style>` section)
 
 ### Build Folder Configuration

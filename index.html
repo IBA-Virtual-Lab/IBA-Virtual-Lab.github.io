@@ -283,14 +283,6 @@
             }
         }
 
-        // Check if we're on mobile
-        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-            var meta = document.createElement('meta');
-            meta.name = 'viewport';
-            meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-            document.getElementsByTagName('head')[0].appendChild(meta);
-        }
-
         // Attempt to load Unity
         var script = document.createElement("script");
         script.src = loaderUrl;
