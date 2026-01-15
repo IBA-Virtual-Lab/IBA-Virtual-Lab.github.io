@@ -270,13 +270,13 @@
 
         // Show warning banner if the build files don't exist
         function showWarning(message) {
-            warningBanner.innerHTML = message;
+            warningBanner.textContent = message;
             warningBanner.style.display = "block";
         }
 
         // Show error banner
         function showError(message) {
-            errorBanner.innerHTML = message;
+            errorBanner.textContent = message;
             errorBanner.style.display = "block";
             if (loadingBar) {
                 loadingBar.style.display = "none";
