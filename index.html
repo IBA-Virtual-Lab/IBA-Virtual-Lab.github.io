@@ -236,7 +236,7 @@
 
         <div id="unity-footer">
             <div class="unity-controls">
-                <button id="fullscreen-button" class="unity-button" onclick="unityInstance.SetFullscreen(1)">Fullscreen</button>
+                <button id="fullscreen-button" class="unity-button" onclick="if(unityInstance) unityInstance.SetFullscreen(1)" style="display: none;">Fullscreen</button>
             </div>
         </div>
 
