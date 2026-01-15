@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="IBA Virtual Lab - Digital Twin Lab for virtual biomedical laboratory science education">
+    <meta name="author" content="NTNU Ålesund - Department of Biological Sciences">
+    <title>IBA Virtual Lab</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        #unity-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        #unity-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            background: #231F20;
+        }
+
+        .webgl-content {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            position: relative;
+        }
+
+        #unity-loading-bar {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            text-align: center;
+        }
+
+        #unity-progress-bar-empty {
+            width: 200px;
+            height: 18px;
+            margin-top: 10px;
+            border-radius: 9px;
+            background: rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        #unity-progress-bar-full {
+            width: 0%;
+            height: 18px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 9px;
+            transition: width 0.3s ease;
+        }
+
+        #unity-logo {
+            width: 154px;
+            height: 130px;
+            margin: 0 auto;
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTU0IiBoZWlnaHQ9IjEzMCIgdmlld0JveD0iMCAwIDE1NCAxMzAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNTQiIGhlaWdodD0iMTMwIiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjEiLz4KPHBhdGggZD0iTTc3IDIwTDExNyA2NUw3NyAxMTBMMzcgNjVMNzcgMjBaIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiLz4KPC9zdmc+') center center no-repeat;
+        }
+
+        #unity-footer {
+            margin-top: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .unity-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .unity-button {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .unity-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background: #f8f9fa;
+        }
+
+        .unity-button:active {
+            transform: translateY(0);
+        }
+
+        .unity-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        #unity-warning {
+            background: #ff9800;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+        }
+
+        .error-message {
+            background: #f44336;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: white;
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            header p {
+                font-size: 0.95rem;
+            }
+
+            .webgl-content {
+                aspect-ratio: 4 / 3;
+            }
+
+            .unity-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .unity-button {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>IBA Virtual Lab</h1>
+            <p>Digital Twin Lab - Virtual Biomedical Laboratory Science Education</p>
+        </header>
+
+        <div id="unity-container" class="unity-container">
+            <div class="webgl-content">
+                <canvas id="unity-canvas"></canvas>
+                <div id="unity-loading-bar">
+                    <div id="unity-logo"></div>
+                    <div id="unity-progress-bar-empty">
+                        <div id="unity-progress-bar-full"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="unity-warning" class="unity-warning"></div>
+        <div id="unity-error" class="error-message"></div>
+
+        <div id="unity-footer">
+            <div class="unity-controls">
+                <button id="fullscreen-button" class="unity-button" onclick="if(unityInstance) unityInstance.SetFullscreen(1)" style="display: none;">Fullscreen</button>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 NTNU Ålesund - Department of Biological Sciences (IBA)</p>
+            <p><a href="https://github.com/IBA-Virtual-Lab" target="_blank">GitHub Repository</a></p>
+        </footer>
+    </div>
+
+    <script>
+        var unityInstance = null;
+        var canvas = document.querySelector("#unity-canvas");
+        var loadingBar = document.querySelector("#unity-loading-bar");
+        var progressBarFull = document.querySelector("#unity-progress-bar-full");
+        var fullscreenButton = document.querySelector("#fullscreen-button");
+        var warningBanner = document.querySelector("#unity-warning");
+        var errorBanner = document.querySelector("#unity-error");
+
+        // Configuration for Unity WebGL build
+        var buildUrl = "Build";
+        var loaderUrl = buildUrl + "/Build.loader.js";
+        var config = {
+            dataUrl: buildUrl + "/Build.data",
+            frameworkUrl: buildUrl + "/Build.framework.js",
+            codeUrl: buildUrl + "/Build.wasm",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "NTNU Ålesund",
+            productName: "IBA Virtual Lab",
+            productVersion: "1.0",
+        };
+
+        // Show warning banner if the build files don't exist
+        function showWarning(message) {
+            warningBanner.textContent = message;
+            warningBanner.style.display = "block";
+        }
+
+        // Show error banner
+        function showError(message) {
+            errorBanner.textContent = message;
+            errorBanner.style.display = "block";
+            if (loadingBar) {
+                loadingBar.style.display = "none";
+            }
+        }
+
+        // Attempt to load Unity
+        var script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = function() {
+            createUnityInstance(canvas, config, function(progress) {
+                progressBarFull.style.width = 100 * progress + "%";
+            }).then(function(instance) {
+                unityInstance = instance;
+                loadingBar.style.display = "none";
+                fullscreenButton.style.display = "inline-block";
+            }).catch(function(message) {
+                showError("Failed to load Unity application: " + message);
+            });
+        };
+        script.onerror = function() {
+            showWarning("Unity build files not found. Please place your Unity WebGL build in the 'Build' folder. Expected file: " + loaderUrl);
+            if (loadingBar) {
+                loadingBar.style.display = "none";
+            }
+        };
+        document.body.appendChild(script);
+    </script>
+</body>
+</html>
