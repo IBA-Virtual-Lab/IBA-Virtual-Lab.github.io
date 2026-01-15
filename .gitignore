@@ -1,20 +1,30 @@
-# This .gitignore file should be placed at the root of your Unity project directory
+# GitHub Pages WebGL Build Repository
+# This repository hosts Unity WebGL builds, not Unity project files
 #
-# Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
-#
+# Note: We ALLOW the Build/ folder as it contains the WebGL output
+# We ignore Unity project structure files
+
+# Temporary files
 .utmp/
+*.log
+*.tmp
+
+# Unity project folders (if accidentally added)
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
-*.log
+/[Pp]ackages/
+/[Pp]roject[Ss]ettings/
 
-# By default unity supports Blender asset imports, *.blend1 blender files do not need to be commited to version control.
-*.blend1
-*.blend1.meta
+# Allow Build folder for WebGL output
+!/Build/
+!Build/**
+
+# Allow Build folder for WebGL output
+!/Build/
+!Build/**
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
