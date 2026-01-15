@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IBA Virtual Laboratory</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="NewBuild\Build\NewBuild.loader.js"></script> 
+</head>
+<body>
+    <header>
+        <h1>IBA Virtual Laboratory</h1>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <div id="unity-container">
+            <canvas id="unity-canvas"></canvas>
+            <div id="loading-bar">
+                <div id="progress-bar"></div>
+            </div>
+        </div>
+
+        <section id="about">
+            <h2>About</h2>
+            <p>The Digital Twin Lab is a project of the Department of Biological Sciences Ålesund (IBA) at NTNU Ålesund. The aim of this project is to develop novel methods for biomedical laboratory science education outside the classroom, and for aquaculture education across geographic locations, based on digital twin labs. This first module teaches methods of hemostasis analysis using the STAGO STart4 machine. </p>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>Questions? Log issues at <a href="https://github.com/IBA-Virtual-Lab">https://github.com/IBA-Virtual-Lab</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025  Department of Biological Sciences Ålesund (IBA) at NTNU </p>
+    </footer>
+
+    <script>
+        createUnityInstance(document.querySelector("#unity-canvas"), {
+            dataUrl: "NewBuild/Build/NewBuild.data",
+            frameworkUrl: "NewBuild/Build/NewBuild.framework.js",
+            codeUrl: "NewBuild/Build/NewBuild.wasm",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "NTNU Ålesund",
+            productName: "Simulation Learning Lab",
+            productVersion: "0.3",
+        }).then((unityInstance) => {
+            // Optional: handle instance
+        }).catch((message) => {
+            alert(message);
+        });
+    </script>
+</body>
+</html>
