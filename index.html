@@ -160,23 +160,6 @@
       unityInstanceRef = unityInstance;
       loadingBar.style.display = 'none';
 
-      // Keep render buffer in sync with future resizes
-      const ro = new ResizeObserver(() => {
-        const w = canvas.clientWidth;
-        const h = canvas.clientHeight;
-        if (unityInstance?.Module?.setCanvasSize && w && h) {
-          unityInstance.Module.setCanvasSize(w * DPR, h * DPR);
-        }
-      });
-      ro.observe(container);
-
-      window.addEventListener('resize', () => {
-        const w = canvas.clientWidth;
-        const h = canvas.clientHeight;
-        if (unityInstance?.Module?.setCanvasSize && w && h) {
-          unityInstance.Module.setCanvasSize(w * DPR, h * DPR);
-        }
-      });
     }).catch((message) => {
       alert(message);
     });
