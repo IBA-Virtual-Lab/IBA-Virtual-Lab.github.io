@@ -6,54 +6,238 @@
   <title>IBA Virtual Laboratory</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/x-icon" href="icon.ico">
-  <script src="NewBuild\Build\NewBuild.loader.js"></script> 
+  <script src="NewBuild/Build/NewBuild.loader.js"></script>
 </head>
 <body>
-    <header>
-        <h1>IBA Virtual Laboratory</h1>
-        <nav>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
+  <header>
+    <h1>IBA Virtual Laboratory</h1>
+  </header>
 
-    <main>
-        <div id="unity-container">
-            <canvas id="unity-canvas"></canvas>
-            <div id="loading-bar">
-                <div id="progress-bar"></div>
-            </div>
+  <main>
+    <!-- ===================== TABS ===================== -->
+    <div class="tabs" role="tablist" aria-label="Sections">
+      <!-- NOTE: Each button controls a tabpanel by aria-controls -->
+      <button class="tab" role="tab" aria-selected="false"
+              aria-controls="tab-about" id="tabbtn-about" data-tab="about">
+        About
+      </button>
+      <button class="tab is-active" role="tab" aria-selected="true"
+              aria-controls="tab-simulation" id="tabbtn-simulation" data-tab="simulation">
+        Simulation
+      </button>
+      <button class="tab" role="tab" aria-selected="false"
+              aria-controls="tab-resources" id="tabbtn-resources" data-tab="resources">
+        Resources
+      </button>
+      <button class="tab" role="tab" aria-selected="false"
+              aria-controls="tab-contact" id="tabbtn-contact" data-tab="contact">
+        Contact
+      </button>
+    </div>
+
+    <!-- ===================== TAB PANELS ===================== -->
+
+    <!-- Tab 1: About -->
+    <section id="tab-about" class="tabpanel" role="tabpanel"
+             aria-labelledby="tabbtn-about" tabindex="0">
+      <h2>About</h2>
+      <p>
+        The Digital Twin Lab is a project of the Department of Biological Sciences Ålesund (IBA) at NTNU Ålesund.
+        The aim of this project is to develop novel methods for biomedical laboratory science education outside the classroom,
+        and for aquaculture education across geographic locations, based on digital twin labs. This first module teaches methods
+        of hemostasis analysis using the STAGO STart4 machine.
+      </p>
+    </section>
+
+    <!-- Tab 2: Simulation (Unity) -->
+    <section id="tab-simulation" class="tabpanel is-active" role="tabpanel"
+             aria-labelledby="tabbtn-simulation" tabindex="0">
+      <div id="unity-container">
+        <canvas id="unity-canvas"></canvas>
+        <div id="loading-bar" style="display: none;">
+          <div id="progress-bar"></div>
         </div>
+      </div>
+    </section>
 
-        <section id="about">
-            <h2>About</h2>
-            <p>The Digital Twin Lab is a project of the Department of Biological Sciences Ålesund (IBA) at NTNU Ålesund. The aim of this project is to develop novel methods for biomedical laboratory science education outside the classroom, and for aquaculture education across geographic locations, based on digital twin labs. This first module teaches methods of hemostasis analysis using the STAGO STart4 machine. </p>
-        </section>
+<!--     Tab 3: Resources (YouTube) -->
+    <section id="tab-resources" class="tabpanel" role="tabpanel"
+             aria-labelledby="tabbtn-resources" tabindex="0">
+      <h2>Additional Learning Resources</h2>
+      <div class="video-grid">
+                 <div class="video">
+          <iframe 
+          width="560" 
+          height="315" 
+          src="https://www.youtube.com/embed/ImNa60sa2TQ?si=IQO9QH30_3IO6nGB" 
+          title="PT-INR on a Stago Start" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin" 
+          allowfullscreen
+          ></iframe>
+        </div>
+        <div class="video">
+          <iframe 
+          width="560" 
+          height="315" 
+          src="https://www.youtube.com/embed/0TOeej3Be2M?si=QvdhefTQ5Qsk0EaC" 
+          title="APTT Demo on a Stago S Start" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin" 
+          allowfullscreen
+          ></iframe>
+        </div>
+        <div class="video">
+          <iframe 
+          width="560" 
+          height="315" 
+          src="https://www.youtube.com/embed/0jeUOBfRCXM?si=A0zZR5ZyDjpCICwM" 
+          title="PT Test on a Stago Start" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin" 
+          allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
 
-        <section id="contact">
-            <h2>Contact</h2>
-            <p>Questions? Log issues at <a href="https://github.com/IBA-Virtual-Lab">https://github.com/IBA-Virtual-Lab</a></p>
-        </section>
-    </main>
+    <!-- Tab 3: Contact -->
+    <section id="tab-contact" class="tabpanel" role="tabpanel"
+             aria-labelledby="tabbtn-contact" tabindex="0">
+      <h2>Contact</h2>
+      <p>
+        Questions? Log issues at
+        <a href="https://github.com/IBA-Virtual-Lab" target="_blank" rel="noopener">https://github.com/IBA-Virtual-Lab</a>
+      </p>
+    </section>
 
-    <footer>
-        <p>&copy; 2026  Department of Biological Sciences Ålesund (IBA) at NTNU </p>
-    </footer>
+  </main>
 
-    <script>
-        createUnityInstance(document.querySelector("#unity-canvas"), {
-            dataUrl: "NewBuild/Build/NewBuild.data",
-            frameworkUrl: "NewBuild/Build/NewBuild.framework.js",
-            codeUrl: "NewBuild/Build/NewBuild.wasm",
-            streamingAssetsUrl: "StreamingAssets",
-            companyName: "NTNU Ålesund",
-            productName: "Simulation Learning Lab",
-            productVersion: "0.3",
-        }).then((unityInstance) => {
-            // Optional: handle instance
-        }).catch((message) => {
-            alert(message);
-        });
-    </script>
+  <footer>
+    <p>© 2026 Department of Biological Sciences Ålesund (IBA) at NTNU</p>
+  </footer>
+
+  <!-- ===================== SCRIPTS ===================== -->
+  
+<script>
+  // ---------- Unity boot (deferred until visible) ----------
+  const loadingBar = document.getElementById('loading-bar');
+  const progressBar = document.getElementById('progress-bar');
+  const canvas = document.querySelector("#unity-canvas");
+  const container = document.querySelector("#unity-container");
+  const DPR = Math.min(window.devicePixelRatio || 1, 2);
+
+  let unityBooted = false;
+  let unityInstanceRef = null;
+
+  function bootUnity() {
+    if (unityBooted) return;
+    if (!canvas || !container) return;
+
+    // If container is not visible yet (e.g., Simulation tab hidden), wait.
+    const style = getComputedStyle(document.getElementById('tab-simulation'));
+    if (style.display === 'none' || document.getElementById('tab-simulation').hidden) {
+      return; // we'll try again when the Simulation tab becomes active
+    }
+
+    loadingBar.style.display = 'block';
+    createUnityInstance(canvas, {
+      dataUrl: "NewBuild/Build/NewBuild.data",
+      frameworkUrl: "NewBuild/Build/NewBuild.framework.js",
+      codeUrl: "NewBuild/Build/NewBuild.wasm",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "NTNU Ålesund",
+      productName: "Simulation Learning Lab",
+      productVersion: "0.3",
+      matchWebGLToCanvasSize: true,
+      devicePixelRatio: DPR
+    }, (progress) => {
+      progressBar.style.width = (100 * progress) + '%';
+    }).then((unityInstance) => {
+      unityBooted = true;
+      unityInstanceRef = unityInstance;
+      loadingBar.style.display = 'none';
+
+      // Keep render buffer in sync with future resizes
+      const ro = new ResizeObserver(() => {
+        const w = canvas.clientWidth;
+        const h = canvas.clientHeight;
+        if (unityInstance?.Module?.setCanvasSize && w && h) {
+          unityInstance.Module.setCanvasSize(w * DPR, h * DPR);
+        }
+      });
+      ro.observe(container);
+
+      window.addEventListener('resize', () => {
+        const w = canvas.clientWidth;
+        const h = canvas.clientHeight;
+        if (unityInstance?.Module?.setCanvasSize && w && h) {
+          unityInstance.Module.setCanvasSize(w * DPR, h * DPR);
+        }
+      });
+    }).catch((message) => {
+      alert(message);
+    });
+  }
+
+  // ---------- Tabs ----------
+  const tabButtons = Array.from(document.querySelectorAll('.tab'));
+  const tabPanels  = Array.from(document.querySelectorAll('.tabpanel'));
+
+  function showTab(tabName, pushHash = true) {
+    // buttons
+    tabButtons.forEach(btn => {
+      const active = btn.dataset.tab === tabName;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+
+    // panels
+    tabPanels.forEach(panel => {
+      const active = panel.id === `tab-${tabName}`;
+      panel.classList.toggle('is-active', active);
+      panel.hidden = !active;
+    });
+
+    if (pushHash) {
+      history.replaceState(null, '', `#${tabName}`);
+    }
+
+    // If we just activated the Simulation tab, boot Unity now (once).
+    if (tabName === 'simulation') {
+      // Use requestAnimationFrame to ensure the panel is painted and has non-zero size
+      requestAnimationFrame(bootUnity);
+    }
+  }
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => showTab(btn.dataset.tab));
+  });
+
+  // Keyboard navigation for tabs
+  document.querySelector('.tabs').addEventListener('keydown', (e) => {
+    const currentIndex = tabButtons.findIndex(b => b.classList.contains('is-active'));
+    if (e.key === 'ArrowRight') {
+      const next = tabButtons[(currentIndex + 1) % tabButtons.length];
+      next.click();
+      e.preventDefault();
+    } else if (e.key === 'ArrowLeft') {
+      const prev = tabButtons[(currentIndex - 1 + tabButtons.length) % tabButtons.length];
+      prev.click();
+      e.preventDefault();
+    }
+  });
+
+  // Initialize from hash or default to simulation
+  const initial = (location.hash || '#simulation').replace('#', '');
+  showTab(initial, false);
+
+  // Only boot Unity if Simulation is the initial tab
+  if (initial === 'simulation') {
+    requestAnimationFrame(bootUnity);
+  }
+</script>
 </body>
 </html>
