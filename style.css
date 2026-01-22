@@ -77,19 +77,35 @@ main {
 
 /* Don't clamp the simulation section to 960px like text sections */
 #tab-simulation {
-  max-width: none; /* overrides 'section { max-width: 960px; }' */
+  max-width: none !important;
+  width: 100%;
+}
+
+
+@media (max-width: 500px) {
+  #unity-container {
+    max-width: 100%;
+  }
 }
 
 /* ===================== Unity container (16:9, responsive) ===================== */
+
+
 #unity-container {
   position: relative;
+
+  /* The magic line */
+  aspect-ratio: 16 / 9;
+
+  /* Make the element scale to the largest size that fits inside viewport */
+  width: min(90vw, 90vh * (16 / 9));
+  height: min(90vh, 90vw * (9 / 16));
+
   margin: 0 auto;
-  height: min(70vh, 800px);  /* example */
-  aspect-ratio: 16 / 9;      /* computes width from height */
-  max-width: none;           /* usually remove width caps in this mode */
   background: black;
   overflow: hidden;
 }
+
 
 #unity-canvas {
   position: absolute;
